@@ -20,6 +20,7 @@ function App() {
         <Routes>
 
           <Route path="/signup" element={<SignUp />}/>
+          <Route path="/" element={token ? (localStorage.getItem("role")==="ADMIN" ? <Navigate to="/admin/dashboard" /> : <Navigate to="/user/dashboard" />) : <Navigate to="/login" />}/>
           <Route path="/login" element={<Login />}/>
          <Route
   path="/admin/dashboard"
