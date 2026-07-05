@@ -130,7 +130,7 @@ function ManageUsers() {
                         
                         {/* Username label display row data slot container */}
                         <td className="px-6 py-4 font-bold text-slate-900">
-                          {user.username || user.email?.split("@")[0] || "Unnamed Identity"}
+                          {user.name || user.email?.split("@")[0] || "Unnamed Identity"}
                           {isSelf && (
                             <span className="text-[9px] bg-slate-100 text-slate-500 border border-slate-200 px-1.5 py-0.5 rounded ml-1.5 font-bold uppercase tracking-wider">
                               Active Admin
