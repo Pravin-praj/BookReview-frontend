@@ -3,6 +3,7 @@ import axios from "axios";
 import AdminLayout from "./AdminLayout";
 
 function ManageUsers() {
+ const API_URL = import.meta.env.VITE_API_URL;
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
@@ -22,6 +23,7 @@ function ManageUsers() {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(res.data)
       setUsers(res.data || []);
     } catch (error) {
       console.error("Error pulling system users database log metrics:", error);
