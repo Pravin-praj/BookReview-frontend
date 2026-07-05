@@ -142,10 +142,10 @@ function handleLogout() {
           <a href="/dashboard" className="block px-3 py-2.5 rounded-xl text-base font-medium text-indigo-600 bg-indigo-50">
             Dashboard
           </a>
-          <a href="/books" className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
+          <a href="/user/books" className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
             Browse Books
           </a>
-          <a href="/reviews" className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
+          <a href="/user/reviews" className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
             My Reviews
           </a>
           
