@@ -65,7 +65,7 @@ function MyReviews() {
         bookId: review.bookId || review.book?.id // Fallback protection depending on DTO key name
       };
 
-      await axios.post(`${API_URL}/review/save`, payload, {
+      await axios.put(`${API_URL}/review/update/${editingReviewId}`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
