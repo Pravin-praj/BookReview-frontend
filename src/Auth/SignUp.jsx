@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
 function SignUp() {
   const API_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
@@ -42,12 +43,11 @@ function SignUp() {
 
     setLoading(true);
     try {
-      // Create a payload that aligns with standard auth entity architectures
       const payload = {
         name: formData.username,
         email: formData.email,
         password: formData.password,
-        role: "USER" // Default registration level assignment
+        role: "USER"
       };
 
       await axios.post(`${API_URL}/auth/signup`, payload, {
@@ -55,18 +55,22 @@ function SignUp() {
       });
 
       setStatusMessage({ type: "success", text: "Registration successful! Redirecting to login..." });
+      toast.success("Account created successfully!");
       setTimeout(() => {
         navigate("/login");
       }, 2000);
     } catch (error) {
       console.error("Signup failed:", error);
-      setStatusMessage({ 
-        type: "error", 
-        text: error.response?.data?.message || "An error occurred while creating your account." 
-      });
+      const msg = error.response?.data?.message || "An error occurred while creating your account.";
+      setStatusMessage({ type: "error", text: msg });
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = `${import.meta.env.VITE_API_URL}/oauth2/authorization/google`;
   };
 
   return (
@@ -91,7 +95,7 @@ function SignUp() {
 
       {/* Right Interaction Registration Container Form */}
       <div className="w-full lg:w-1/2 flex justify-center items-center p-6 sm:p-12">
-        <div className="bg-white border border-slate-200/60 shadow-xl rounded-3xl w-full max-w-md p-8 sm:p-10 space-y-7">
+        <div className="bg-white border border-slate-200/60 shadow-xl rounded-3xl w-full max-w-md p-8 sm:p-10 space-y-6">
           
           <div className="text-center space-y-2">
             <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
@@ -161,7 +165,7 @@ function SignUp() {
                   value={formData.password}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm transition-all focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm transition-all focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 focus:bg-white"
                 />
               </div>
               <div>
@@ -175,12 +179,12 @@ function SignUp() {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm transition-all focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm transition-all focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 focus:bg-white"
                 />
               </div>
             </div>
 
-            {/* View Password Toggle Switch Utility link element */}
+            {/* View Password Toggle Switch */}
             <div className="text-right">
               <button 
                 type="button" 
@@ -192,7 +196,7 @@ function SignUp() {
             </div>
 
             {/* Terms and Conditions Checkbox */}
-            <div className="pt-2">
+            <div className="pt-1">
               <label className="flex items-start gap-2.5 cursor-pointer select-none text-slate-600 text-sm">
                 <input
                   type="checkbox"
@@ -215,17 +219,45 @@ function SignUp() {
             >
               {loading ? "Registering Account..." : "Create Account"}
             </button>
-
-            {/* Redirect Footer Links */}
-            <div className="text-center pt-4">
-              <p className="text-sm text-slate-500">
-                Already have an account?
-                <a href="/login" className="text-indigo-600 font-bold hover:text-indigo-700 ml-1.5 transition-colors">
-                  Sign In
-                </a>
-              </p>
-            </div>
           </form>
+
+          {/* Visual Decorative Divider Line */}
+          <div className="flex items-center my-5">
+            <div className="flex-1 border-t border-slate-200"></div>
+            <span className="px-3 text-xs font-bold uppercase tracking-wider text-slate-400">or continue with</span>
+            <div className="flex-1 border-t border-slate-200"></div>
+          </div>
+
+          {/* Google OAuth Button */}
+          <div>
+            <button
+              type="button"
+              onClick={handleGoogleLogin}
+              className="w-full flex items-center justify-center gap-3 border border-slate-200 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-all active:scale-[0.99]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 48 48"
+                className="w-5 h-5 flex-shrink-0"
+              >
+                <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.7 1.1 7.8 3l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/>
+                <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 12 24 12c3 0 5.7 1.1 7.8 3l5.7-5.7C34.1 6.1 29.3 4 24 4c-7.7 0-14.3 4.4-17.7 10.7z"/>
+                <path fill="#4CAF50" d="M24 44c5.2 0 10-2 13.5-5.3l-6.2-5.2C29.2 35.2 26.7 36 24 36c-5.3 0-9.8-3.3-11.4-8l-6.6 5.1C9.3 39.5 16.1 44 24 44z"/>
+                <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1.1 3.1-3.3 5.5-6 6.8l6.2 5.2C39.3 36.5 44 30.8 44 24c0-1.3-.1-2.7-.4-3.5z"/>
+              </svg>
+              <span>Sign up with Google</span>
+            </button>
+          </div>
+
+          {/* Redirect Footer Links */}
+          <div className="text-center pt-2">
+            <p className="text-sm text-slate-500">
+              Already have an account?
+              <a href="/login" className="text-indigo-600 font-bold hover:text-indigo-700 ml-1.5 transition-colors">
+                Sign In
+              </a>
+            </p>
+          </div>
 
         </div>
       </div>

@@ -10,6 +10,7 @@ import Profile from './User/Profile'
 import ManageBooks from './Admin/ManageBooks'
 import ManageReviews from './Admin/ManageReviews'
 import ManageUsers from './Admin/ManageUsers'
+import OAuthSuccess from './Auth/OAuthSuccess'
 import {ToastContainer} from 'react-toastify'
 function App() {
   const token=localStorage.getItem("token")
@@ -106,6 +107,13 @@ function App() {
       ? <Profile />
       : <Navigate to="/login" />
   }
+/>
+
+
+
+<Route
+    path="/oauth-success"
+    element={<OAuthSuccess />}
 />
 
 
