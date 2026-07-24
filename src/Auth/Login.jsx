@@ -171,9 +171,15 @@ function Login() {
                 />
                 <span>Remember me</span>
               </label>
-              <a href="#" className="text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">
-                Forgot Password?
-              </a>
+              <div className="flex justify-end mt-2">
+    <button
+        type="button"
+        onClick={() => navigate("/forgot-password")}
+        className="text-sm text-indigo-600 hover:text-indigo-700 hover:underline"
+    >
+        Forgot Password?
+    </button>
+</div>
             </div>
 
             {/* Main Submit Button */}

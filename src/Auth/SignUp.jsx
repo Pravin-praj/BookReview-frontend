@@ -54,11 +54,20 @@ function SignUp() {
         headers: { "Content-Type": "application/json" }
       });
 
-      setStatusMessage({ type: "success", text: "Registration successful! Redirecting to login..." });
-      toast.success("Account created successfully!");
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
+     setStatusMessage({
+  type: "success",
+  text: "Registration successful! Please verify your email."
+});
+
+toast.success("OTP sent to your email.");
+
+setTimeout(() => {
+  navigate("/verify-otp", {
+    state: {
+      email: formData.email
+    }
+  });
+}, 2000);
     } catch (error) {
       console.error("Signup failed:", error);
       const msg = error.response?.data?.message || "An error occurred while creating your account.";

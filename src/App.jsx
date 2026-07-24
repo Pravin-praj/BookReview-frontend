@@ -11,6 +11,9 @@ import ManageBooks from './Admin/ManageBooks'
 import ManageReviews from './Admin/ManageReviews'
 import ManageUsers from './Admin/ManageUsers'
 import OAuthSuccess from './Auth/OAuthSuccess'
+import VerifyOtp from './Auth/VerifyOtp'
+import ForgotPassword from './Auth/ForgotPassword'
+import ResetPassword from './Auth/ResetPassword'
 import {ToastContainer} from 'react-toastify'
 function App() {
   const token=localStorage.getItem("token")
@@ -59,6 +62,8 @@ function App() {
       : <Navigate to="/login" />
   }
 />
+
+<Route path="/verify-otp" element={<VerifyOtp />} />
 
 
 
@@ -116,6 +121,16 @@ function App() {
     element={<OAuthSuccess />}
 />
 
+<Route
+    path="/forgot-password"
+    element={<ForgotPassword />}
+/>
+
+
+<Route
+    path="/reset-password"
+    element={<ResetPassword />}
+/>
 
         </Routes>
       </Router>
